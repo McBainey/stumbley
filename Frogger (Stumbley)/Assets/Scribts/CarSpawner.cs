@@ -1,4 +1,5 @@
 using UnityEngine;
+using System.Collections;
 
 public class CarSpawner : MonoBehaviour {
 
@@ -9,6 +10,8 @@ public class CarSpawner : MonoBehaviour {
 	public Transform[] spawnPoints;
 
 	float nextTimeToSpawn = 0f;
+
+	GameObject ThePrefabClone; 
 
 	void Update ()
 	{
@@ -24,7 +27,8 @@ public class CarSpawner : MonoBehaviour {
 		int randomIndex = Random.Range(0, spawnPoints.Length);
 		Transform spawnPoint = spawnPoints[randomIndex];
 
-		Instantiate(car, spawnPoint.position, spawnPoint.rotation);
+		ThePrefabClone = Instantiate(car, spawnPoint.position, spawnPoint.rotation) as GameObject;
+		Destroy(ThePrefabClone ,7.0f); //spawns last for 7 seconds
 	}
 
 }
