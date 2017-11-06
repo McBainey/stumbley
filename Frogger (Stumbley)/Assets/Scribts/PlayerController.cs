@@ -1,9 +1,17 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class Frog : MonoBehaviour {
+public class PlayerController : MonoBehaviour {
 
 	public Rigidbody2D rb;
+
+	public Transform respawnPosition;
+
+
+	void Start()
+	{
+		respawnPosition = GameObject.FindGameObjectWithTag ("PlayerSpawn").transform;
+	}
 
 	void Update () {
 
@@ -20,11 +28,12 @@ public class Frog : MonoBehaviour {
 
 	void OnTriggerEnter2D (Collider2D col)
 	{
-		if (col.tag == "Car")
+		if (col.gameObject.tag == "PassingObject")
 		{
-			Debug.Log("WE LOST!");
+			Debug.Log("Start Again!!");
 			Score.CurrentScore = 0;
-			SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+			//SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+			transform.position = respawnPosition.position;
 		}
 	}
 }
